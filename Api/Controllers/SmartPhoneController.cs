@@ -1,5 +1,6 @@
 using Api.Models;
 using Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
 
@@ -20,6 +21,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("ListOFAllObjects")]
+        [Authorize]
         public async Task<IEnumerable<Phone>?> ListOFAllObjects()
         {
             return await _info.ListOFAllObjects();
