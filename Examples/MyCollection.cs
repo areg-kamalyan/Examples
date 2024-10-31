@@ -1,4 +1,4 @@
-﻿using Core.Collections;
+﻿using Core.MyCollections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +75,57 @@ namespace Examples
             {
                 Console.WriteLine(item1);
             }
+        }
+
+        public static void UseMyQueue()
+        {
+            MyQueue<int> data = new MyQueue<int>();
+            data.Enqueue(15);
+            data.Enqueue(25);
+            data.Enqueue(35);
+            data.Enqueue(45);
+
+            Console.WriteLine(data.Dequeue());
+
+            data.Enqueue(55);
+            data.Dequeue();
+            data.Enqueue(77);
+
+
+            Console.WriteLine(data.Contains(25));
+
+            Console.WriteLine(data.Peek());
+            foreach (int item in data)
+            {
+                Console.WriteLine(item);
+            }
+
+            data.Clear();
+        }
+        public static void UseMySteck()
+        {
+            MyStack<int> data = new MyStack<int>();
+            data.Push(15);
+            data.Push(25);
+            data.Push(35);
+            data.Push(45);
+
+            Console.WriteLine(data.Pop());
+
+            data.Push(55);
+            data.Pop();
+            data.Push(77);
+
+
+            Console.WriteLine(data.Contains(25));
+
+            Console.WriteLine(data.Peek());
+            foreach (int item in data)
+            {
+                Console.WriteLine(item);
+            }
+
+            data.Clear();
         }
     }
 }

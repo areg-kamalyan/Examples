@@ -1,4 +1,4 @@
-﻿using Core.Collections;
+﻿using Core.MyCollections;
 using Core.Entitys;
 using Examples;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +14,11 @@ internal class Program
         //MyCollection.UseMyList();
         //MyCollection.UseMyDictionary();
         //MyCollection.UseMyLinkedList();
+        //MyCollection.UseMyQueue();
+        //MyCollection.UseMySteck();
+
         //Reflection.Run();
-        Repository.UseRepositoryPattern();
+        //Repository.UseRepositoryPattern();
         //Expressions.Run();
 
 

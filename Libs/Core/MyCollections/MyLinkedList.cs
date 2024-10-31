@@ -1,4 +1,4 @@
-﻿namespace Core.Collections
+﻿namespace Core.MyCollections
 {
     public class MyLinkedList<T>
     {
