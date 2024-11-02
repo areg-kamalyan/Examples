@@ -4,7 +4,7 @@ namespace RepositoryPattern.Implementation.xUnitTests
 {
     public class ExtensionsXmlTests
     {
-        private readonly StoreType _StoreType = StoreType.Xml;
+        private readonly StoreType _StoreType = StoreType.OnXml;
 
         [Fact]
         public void LoadTest()

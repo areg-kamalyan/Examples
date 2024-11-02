@@ -1,12 +1,32 @@
 ﻿using Core.Entitys;
-namespace RepositoryPattern.DBImplementation
+using Microsoft.EntityFrameworkCore;
+namespace RepositoryPattern.StorageՕptions
 {
-    internal class Entity
+    internal class UniversityDbContext : DbContext
     {
-        internal static IEnumerable<T> LoadFromDB<T>() 
+        private readonly string _connectionString;
+        public UniversityDbContext(string connectionString) 
+        {
+            _connectionString = connectionString;
+        }
+        public DbSet<Core.Entitys.Student> Students { get; set; }
+        public DbSet<Core.Entitys.Employer> Employers { get; set; }
+        public DbSet<Core.Entitys.Customer> Customers { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // Set up connection string and database provider (SQLite in this case)
+            optionsBuilder.UseSqlServer(_connectionString);
+        }
+    }
+
+    internal class OnEntityFramework
+    {
+        public static string connectionString;
+        internal static IEnumerable<T> Load<T>() 
         {
 
-            using (var context = new UniversityDbContext())
+            using (var context = new UniversityDbContext(connectionString))
             {
                 // Ensure the database is created
                 context.Database.EnsureCreated();
@@ -27,9 +47,9 @@ namespace RepositoryPattern.DBImplementation
             return new List<T>();
         }
 
-        internal static void WriteToDB<T>(List<T> source) 
+        internal static void Write<T>(List<T> source) 
         {
-            using (var context = new UniversityDbContext())
+            using (var context = new UniversityDbContext(connectionString))
             {
                 // Ensure the database is created
                 context.Database.EnsureCreated();

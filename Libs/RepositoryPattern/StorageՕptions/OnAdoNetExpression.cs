@@ -3,10 +3,13 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace RepositoryPattern.DBImplementation
+namespace RepositoryPattern.StorageՕptions
 {
-    public class AdoNetExpression
+    public class OnAdoNetExpression
     {
+
+        public static string connectionString;
+
         static Dictionary<string, string> _Tables = new()
         {
             { "Student", "Students" },
@@ -15,7 +18,7 @@ namespace RepositoryPattern.DBImplementation
         };
 
 
-        internal static IEnumerable<T> LoadFromDB<T>() where T : class, new()
+        internal static IEnumerable<T> Load<T>() where T : class, new()
         {
             Expression<Func<IDataRecord, T>> convertExp = CreateDataRecordConverterExpression<T>();
             Func<IDataRecord, T> convert = convertExp.Compile();
@@ -29,7 +32,7 @@ namespace RepositoryPattern.DBImplementation
 
         public static IEnumerable<IDataRecord> AsEnumerable(string query)
         {
-            using var conn = new SqlConnection(UniversityDbContext.connectionString);
+            using var conn = new SqlConnection(connectionString);
             if (conn.State != ConnectionState.Open)
                 conn.Open();
 
@@ -77,14 +80,14 @@ namespace RepositoryPattern.DBImplementation
         }
 
 
-        internal static void WriteToDB<T>(List<T> source)
+        internal static void Write<T>(List<T> source)
         {
              IEnumerable<Expression<Func<T,IDataParameter>>> convertExp = CreateSqlParameterConverterExpression<T>();
 
             IEnumerable<Func<T, IDataParameter>> convert = convertExp.Select(e => e.Compile());
 
             // Establishing a connection to the database
-            using SqlConnection connection = new SqlConnection(UniversityDbContext.connectionString);
+            using SqlConnection connection = new SqlConnection(connectionString);
 
             // Opening the connection
             connection.Open();

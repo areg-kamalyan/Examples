@@ -1,9 +1,9 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace RepositoryPattern.FileImplementation
+namespace RepositoryPattern.StorageՕptions
 {
-    public static class Xml
+    public static class OnXml
     {
         public static void WriteByReflection<T>(this IEnumerable<T> Data, string Path)
         {
@@ -34,7 +34,7 @@ namespace RepositoryPattern.FileImplementation
             writer.Flush();
         }
 
-        internal static List<T> LoadFromFile<T>(string filename)
+        internal static List<T> Load<T>(string filename)
         {
             filename += ".xml";
             XmlSerializer xmlSerializer = new(typeof(List<T>));
@@ -47,7 +47,7 @@ namespace RepositoryPattern.FileImplementation
             return (List<T>)xmlSerializer.Deserialize(fs);
         }
 
-        internal static void WriteToFile<T>(List<T> source, string filename)
+        internal static void Write<T>(List<T> source, string filename)
         {
             filename += ".xml";
             XmlSerializer xmlSerializer = new(typeof(List<T>));

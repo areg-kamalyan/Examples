@@ -8,7 +8,7 @@ namespace RepositoryPattern.Implementation.MSTests
     {
         //   private Dictionary<int, IEntity<int>> Data;
         private readonly string _FileName = "TestData";
-        private readonly StoreType _StoreType = StoreType.Xml;
+        private readonly StoreType _StoreType = StoreType.OnXml;
 
         [TestMethod()]
         public void LoadTest()

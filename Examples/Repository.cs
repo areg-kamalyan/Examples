@@ -19,15 +19,15 @@ namespace Examples
             var service = new ServiceCollection();
             service.AddRepositories(new()
                     {
-                        {nameof(Student),cnf=>{ cnf.FileName = nameof(Student); cnf.StoreType = StoreType.AdoNetExpression; } },
-                        {nameof(Customer),cnf=>{ cnf.FileName = nameof(Customer); cnf.StoreType = StoreType.AdoNetExpression; } },
+                        {nameof(Student),cnf=>{ cnf.FileName = nameof(Student); cnf.StoreType = StoreType.OnAdoNetExpression; } },
+                        {nameof(Customer),cnf=>{ cnf.FileName = nameof(Customer); cnf.StoreType = StoreType.OnEntityFramework; } },
                     });
             var Provider = service.BuildServiceProvider();
 
 
             var stRepository = Provider.GetRequiredService<IStutentRepository>();
 
-            Run<Student>(stRepository, 5000);
+            Run<Student>(stRepository, 500);
             
 
             var cuRepository = Provider.GetRequiredService<ICustomerRepository>();

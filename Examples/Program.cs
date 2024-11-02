@@ -18,7 +18,7 @@ internal class Program
         //MyCollection.UseMySteck();
 
         //Reflection.Run();
-        //Repository.UseRepositoryPattern();
+        Repository.UseRepositoryPattern();
         //Expressions.Run();
 
 

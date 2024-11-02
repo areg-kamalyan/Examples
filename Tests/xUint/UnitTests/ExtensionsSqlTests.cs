@@ -4,7 +4,7 @@ namespace RepositoryPattern.Implementation.xUnitTests
 {
     public class ExtensionsSqlTests
     {
-        private readonly StoreType _StoreType = StoreType.Entity;
+        private readonly StoreType _StoreType = StoreType.OnEntityFramework;
 
         [Fact]
         public void LoadTest()

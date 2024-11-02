@@ -1,28 +1,28 @@
-﻿using Core;
-using RepositoryPattern.FileImplementation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
+﻿using RepositoryPattern.StorageՕptions;
 
 namespace RepositoryPattern.Implementation
 {
-    public enum StoreType { Xml, Entity, AdoNetExpression }
+    public enum StoreType { OnXml, OnEntityFramework, OnAdoNetExpression }
     public static class Extensions 
     {
+        static Extensions()
+        {
+            string connectionString = @"Server=(localdb)\ProjectModels;Database=UniversityDb;Trusted_Connection=True;Integrated Security=True";
+
+            OnEntityFramework.connectionString = connectionString;
+            OnAdoNetExpression.connectionString = connectionString;
+        }
+
         public static IEnumerable<T> Load<T>(StoreType type, string filename = "") where T : class, new()
         {
             switch (type)
             {
-                case StoreType.Xml:
-                    return FileImplementation.Xml.LoadFromFile<T>(filename);
-                case StoreType.Entity:
-                    return DBImplementation.Entity.LoadFromDB<T>();
-                case StoreType.AdoNetExpression:
-                    return DBImplementation.AdoNetExpression.LoadFromDB<T>();
+                case StoreType.OnXml:
+                    return OnXml.Load<T>(filename);
+                case StoreType.OnEntityFramework:
+                    return OnEntityFramework.Load<T>();
+                case StoreType.OnAdoNetExpression:
+                    return OnAdoNetExpression.Load<T>();
                 default:
                     throw new Exception();
             }
@@ -32,14 +32,14 @@ namespace RepositoryPattern.Implementation
         {
             switch (type)
             {
-                case StoreType.Xml:
-                    FileImplementation.Xml.WriteToFile(source, filename);
+                case StoreType.OnXml:
+                    OnXml.Write(source, filename);
                     break;
-                case StoreType.Entity:
-                    DBImplementation.Entity.WriteToDB(source);
+                case StoreType.OnEntityFramework:
+                    OnEntityFramework.Write(source);
                     break;
-                case StoreType.AdoNetExpression:
-                    DBImplementation.AdoNetExpression.WriteToDB(source);
+                case StoreType.OnAdoNetExpression:
+                    OnAdoNetExpression.Write(source);
                     break;
             }
         }

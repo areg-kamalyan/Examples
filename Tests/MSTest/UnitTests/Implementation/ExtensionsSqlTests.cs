@@ -6,7 +6,7 @@ namespace RepositoryPattern.Implementation.MSTests
     [TestClass()]
     public class ExtensionsSqlTests
     {
-        private readonly StoreType _StoreType = StoreType.Entity;
+        private readonly StoreType _StoreType = StoreType.OnEntityFramework;
 
         [TestMethod()]
         public void LoadTest()
