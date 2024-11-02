@@ -9,9 +9,9 @@ namespace RepositoryPattern.StorageՕptions
         {
             _connectionString = connectionString;
         }
-        public DbSet<Core.Entitys.Student> Students { get; set; }
-        public DbSet<Core.Entitys.Employer> Employers { get; set; }
-        public DbSet<Core.Entitys.Customer> Customers { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Employer> Employers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

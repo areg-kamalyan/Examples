@@ -19,7 +19,7 @@ namespace Examples
             var service = new ServiceCollection();
             service.AddRepositories(new()
                     {
-                        {nameof(Student),cnf=>{ cnf.FileName = nameof(Student); cnf.StoreType = StoreType.OnAdoNetExpression; } },
+                        {nameof(Student),cnf=>{ cnf.FileName = nameof(Student); cnf.StoreType = StoreType.OnDapper; } },
                         {nameof(Customer),cnf=>{ cnf.FileName = nameof(Customer); cnf.StoreType = StoreType.OnEntityFramework; } },
                     });
             var Provider = service.BuildServiceProvider();

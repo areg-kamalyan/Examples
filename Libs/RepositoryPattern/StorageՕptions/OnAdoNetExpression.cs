@@ -10,7 +10,7 @@ namespace RepositoryPattern.StorageՕptions
 
         public static string connectionString;
 
-        static Dictionary<string, string> _Tables = new()
+        public static Dictionary<string, string> _Tables = new()
         {
             { "Student", "Students" },
             { "Employer", "Employers" },

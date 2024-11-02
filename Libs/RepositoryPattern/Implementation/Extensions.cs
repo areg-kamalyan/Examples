@@ -2,7 +2,7 @@
 
 namespace RepositoryPattern.Implementation
 {
-    public enum StoreType { OnXml, OnEntityFramework, OnAdoNetExpression }
+    public enum StoreType { OnXml, OnEntityFramework, OnAdoNetExpression, OnDapper }
     public static class Extensions 
     {
         static Extensions()
@@ -11,6 +11,7 @@ namespace RepositoryPattern.Implementation
 
             OnEntityFramework.connectionString = connectionString;
             OnAdoNetExpression.connectionString = connectionString;
+            OnDapper.connectionString = connectionString;
         }
 
         public static IEnumerable<T> Load<T>(StoreType type, string filename = "") where T : class, new()
@@ -23,6 +24,8 @@ namespace RepositoryPattern.Implementation
                     return OnEntityFramework.Load<T>();
                 case StoreType.OnAdoNetExpression:
                     return OnAdoNetExpression.Load<T>();
+                case StoreType.OnDapper:
+                    return OnDapper.Load<T>();
                 default:
                     throw new Exception();
             }
@@ -40,6 +43,9 @@ namespace RepositoryPattern.Implementation
                     break;
                 case StoreType.OnAdoNetExpression:
                     OnAdoNetExpression.Write(source);
+                    break;
+                case StoreType.OnDapper:
+                    OnDapper.Write(source);
                     break;
             }
         }
