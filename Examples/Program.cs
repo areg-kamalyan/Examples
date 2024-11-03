@@ -18,10 +18,12 @@ internal class Program
         //MyCollection.UseMySteck();
 
         //Reflection.Run();
-        Repository.UseRepositoryPattern();
+        //Repository.UseRepositoryPattern();
         //Expressions.Run();
+        Benchmarker.Run();
 
 
         Console.WriteLine("Hello, World!");
+        Console.ReadLine();
     }
 }
