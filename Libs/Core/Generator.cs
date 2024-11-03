@@ -20,8 +20,8 @@ namespace Core
                 {
                     ID = GenereteID(),
                     Name = $"Name{i}",
-                    Email = $"{i}@gmail.com",
-                    Phone = $"+374 {i}",
+                    Email = $"Name{i}@gmail.com",
+                    Phone = $"+374 93 22{i * 1000}",
                     Age = i
                 };
 
@@ -43,7 +43,7 @@ namespace Core
             return items;
         }
 
-        public static int GenereteID()
+        private static int GenereteID()
         {
             return new Random().Next(10001, 99999);
         }
