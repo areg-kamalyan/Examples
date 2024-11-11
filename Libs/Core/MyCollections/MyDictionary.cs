@@ -1,89 +1,133 @@
-﻿namespace Core.MyCollections
-{
-    public class MyKeyValuePair<_Key, _Value>
-    {
-        public _Key? Key { set; get; }
-        public _Value? Value { set; get; }
+﻿using System;
 
-        public bool Equals(MyKeyValuePair<_Key, _Value>? obj)
-        {
-            if (obj == null) return false;
-            if (Key.Equals(obj.Key) && Value.Equals(obj.Value)) return true;
-            return false;
-        }
-    }
+namespace Core.MyCollections
+{
+
 
     public class MyDictionary<_Key, _Value>
     {
-        private MyKeyValuePair<_Key, _Value>[] arr;
-        uint index;
+        public class MyKeyValuePair
+        {
+            public _Key Key { set; get; }
+            public _Value Value { set; get; }
+
+            public MyKeyValuePair Next;
+        }
+
+        private MyKeyValuePair[] arr;
+        uint Count;
 
         public MyDictionary()
         {
-            arr = new MyKeyValuePair<_Key, _Value>[4];
+            arr = new MyKeyValuePair[4];
         }
 
         private void Resize()
         {
-            if (index == arr.Length)
+
+            var TempArr = new MyKeyValuePair[arr.Length * 2];
+            foreach (MyKeyValuePair entry in arr)
             {
-                var Temp = new MyKeyValuePair<_Key, _Value>[arr.Length * 2];
-                Array.Copy(arr, Temp, arr.Length);
-                arr = Temp;
+                var current = entry;
+                while (current != null)
+                {
+                    int index = GetHashCode(current.Key) % TempArr.Length;
+                    var next = current.Next;
+
+                    current.Next = TempArr[index];
+                    TempArr[index] = current;
+
+                    current = next;
+                }
             }
+            arr = TempArr;
         }
 
-        private bool KeyExist(_Key key)
+        // Хеш-функция
+        private int GetHashCode(_Key key)
         {
-            for (int i = 0; i < index; i++) 
-            { 
-                if (arr[i].Key.Equals(key))
-                    return true;
-            }
-            return false;
+            return key.GetHashCode() & 0x7FFFFFFF;  // Обеспечиваем положительный хеш
         }
 
         public void Add(_Key Key, _Value Value)
         {
-            if (KeyExist(Key))
-                throw new Exception("Key is exist");
-            Resize();
-            arr[index] = new MyKeyValuePair<_Key, _Value> { Key = Key, Value = Value };
-            index++;
-        }
+            int hashCode = GetHashCode(Key);
+            int index = hashCode % arr.Length;
 
-        public void Insert(_Key Key, _Value Value, uint position)
-        {
-            if (KeyExist(Key))
-                throw new Exception("Key is exist");
-
-            Resize();
-            Array.Copy(arr, position, arr, position + 1, index - position);
-            arr[position] = new MyKeyValuePair<_Key, _Value> { Key = Key, Value = Value };
-            index++;
-        }
-
-        public bool Contains(MyKeyValuePair<_Key, _Value> item)
-        {
-            for (int i = 0; i < arr.Length; i++)
+            // Проверка на коллизии
+            var current = arr[index];
+            while (current != null)
             {
-                if (arr[i].Equals(item))
+                if (current.Key.Equals(Key))
                 {
-                    return true;
+                    throw new ArgumentException("Duplicate key");
                 }
+                current = current.Next;
+            }
+
+            // Создаем новую запись
+            var newEntry = new MyKeyValuePair{ Key = Key, Value = Value };
+            newEntry.Next = arr[index];
+            arr[index] = newEntry;
+            Count++;
+
+            // Перераспределение массива при превышении порога
+            if (Count > arr.Length * 0.75)
+            {
+                Resize();
+            }
+        }
+
+        public bool Contains(_Key _Key)
+        {
+            int hashCode = GetHashCode(_Key);
+            int index = hashCode % arr.Length;
+
+            // Проверка на коллизии
+            var current = arr[index];
+            while (current != null)
+            {
+                if (current.Key.Equals(_Key))
+                {
+                   return true;
+                }
+                current = current.Next;
             }
             return false;
         }
 
-        public void Remove(MyKeyValuePair<_Key, _Value> item)
+        public void Remove(_Key _Key)
         {
-            for (int i = 0; i < arr.Length; i++)
+            int hashCode = GetHashCode(_Key);
+            int index = hashCode % arr.Length;
+
+            // Проверка на коллизии
+            var current = arr[index];
+            MyKeyValuePair old = null;
+            while (current != null)
             {
-                if (arr[i].Equals(item))
+                if (current.Key.Equals(_Key))
                 {
-                    Array.Copy(arr, i + 1, arr, i, --index);
-                    return;
+                    if (old == null)
+                    {
+                        if (arr[index].Next == null)
+                        {
+                            arr[index] = default;
+                        }
+                        else
+                        {
+                            arr[index] = arr[index].Next;
+                        }
+                    }
+                    else
+                    {
+                        old.Next = current.Next;
+                    }
+                    Count--;
+                    break;
                 }
+                old = current;
+                current = current.Next;
             }
         }
 
@@ -91,43 +135,59 @@
         {
             get
             {
-                for (int i = 0; i < index; i++)
-                {
-                    if (arr[i].Key.Equals(key))
-                    {
-                        return arr[i].Value;
-                    }
-                }
+                int hashCode = GetHashCode(key);
+                int index = hashCode % arr.Length;
 
+                // Проверка на коллизии
+                var current = arr[index];
+                while (current != null)
+                {
+                    if (current.Key.Equals(key))
+                    {
+                        return current.Value;
+                    }
+                    current = current.Next;
+                }
                 throw new Exception("Key is not exist");
             }
             set
             {
-                for (int i = 0; i < index; i++)
+                int hashCode = GetHashCode(key);
+                int index = hashCode % arr.Length;
+
+                // Проверка на коллизии
+                var current = arr[index];
+                while (current != null)
                 {
-                    if (arr[i].Key.Equals(key))
+                    if (current.Key.Equals(key))
                     {
-                        arr[i].Value = value;
+                        current.Value = value;
                         return;
                     }
+                    current = current.Next;
                 }
-
                 throw new Exception("Key is not exist");
             }
         }
 
-        public IEnumerator<MyKeyValuePair<_Key, _Value>> GetEnumerator()
+        public IEnumerator<MyKeyValuePair> GetEnumerator()
         {
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                yield return arr[i];
+                var current = arr[i];
+                while (current != null)
+                {
+                    yield return current;
+
+                    current = current.Next;
+                }
             }
         }
 
         public void Clearn()
         {
-            arr = new MyKeyValuePair<_Key, _Value>[4];
-            index = 0;
+            arr = new MyKeyValuePair[4];
+            Count = 0;
         }
     }
 }

@@ -48,7 +48,10 @@
             {
                 if (arr[i].Equals(item))
                 {
-                    Array.Copy(arr, i + 1, arr, i, --index);
+
+                    arr[i] = default;
+                    index--;
+                    Array.Copy(arr, i + 1, arr, i, index - i);
                     return;
                 }
             }

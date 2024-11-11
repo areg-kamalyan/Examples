@@ -1,9 +1,4 @@
 ﻿using Core.MyCollections;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Examples
 {
@@ -32,7 +27,6 @@ namespace Examples
 
             data.Clearn();
         }
-
         public static void UseMyDictionary()
         {
             var data = new MyDictionary<int, string>();
@@ -40,12 +34,10 @@ namespace Examples
             data.Add(25, "25");
             data.Add(35, "35");
             data.Add(55, "55");
-            data.Insert(45, "45", 3);
 
-            var item = new MyKeyValuePair<int, string>() { Key = 25, Value = "25" };
-            if (data.Contains(item))
+            if (data.Contains(25))
             {
-                data.Remove(item);
+                data.Remove(25);
             }
 
             data[15] = "85";
@@ -57,7 +49,6 @@ namespace Examples
 
             data.Clearn();
         }
-
         public static void UseMyLinkedList()
         {
 
@@ -76,7 +67,6 @@ namespace Examples
                 Console.WriteLine(item1);
             }
         }
-
         public static void UseMyQueue()
         {
             MyQueue<int> data = new MyQueue<int>();

@@ -1,12 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using BenchmarkDotNet.Toolchains.NativeAot;
 using Core.Entitys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Core.MyCollections;
 
 namespace Examples
 {
@@ -14,15 +9,15 @@ namespace Examples
     {
         public static void Run()
         {
-            var summary = BenchmarkRunner.Run<TasksBenchmarker>();
+            var summary = BenchmarkRunner.Run<CollectionBenchmarker>();
         }
     }
-       
-    
+
+
 
     [MemoryDiagnoser]
     [SimpleJob(launchCount: 1, warmupCount: 1)]
-    public class TasksBenchmarker
+    public class CollectionBenchmarker
     {
         [Params(1000, 10000)]
         public int TotalCount { get; set; }
@@ -43,18 +38,82 @@ namespace Examples
         }
 
         [Benchmark]
+        public void MyList()
+        {
+            var students = Core.Generator.Generate<Student>(TotalCount);
+
+            var list = new MyList<Student>();
+
+            for (int i = 0; i < TotalCount; i++)
+            {
+                list.Add(students[i]);
+                list.Add(students[i]);
+                list.Remove(students[i]);
+            }
+        }
+
+        [Benchmark]
         public void Queue()
         {
             var students = Core.Generator.Generate<Student>(TotalCount);
 
-            var list = new Queue<Student>();
+            var queue = new Queue<Student>();
 
             for (int i = 0; i < TotalCount; i++)
             {
-                list.Enqueue(students[i]);
-                list.Enqueue(students[i]);
-                list.Dequeue();
+                queue.Enqueue(students[i]);
+                queue.Enqueue(students[i]);
+                queue.Dequeue();
             }
         }
+
+        [Benchmark]
+        public void MyQueue()
+        {
+            var students = Core.Generator.Generate<Student>(TotalCount);
+
+            var queue = new MyQueue<Student>();
+
+            for (int i = 0; i < TotalCount; i++)
+            {
+                queue.Enqueue(students[i]);
+                queue.Enqueue(students[i]);
+                queue.Dequeue();
+            }
+        }
+
+        [Benchmark]
+        public void Dictionary()
+        {
+            var students = Core.Generator.Generate<Student>(TotalCount);
+
+            var dictionary = new Dictionary<string, Student>();
+
+            for (int i = 0; i < TotalCount; i++)
+            {
+                var key = i.ToString();
+                dictionary.Add(key, students[i]);
+                if (i % 5 == 0)
+                    dictionary.Remove(key);
+            }
+        }
+
+        [Benchmark]
+        public void MyDictionary()
+        {
+            var students = Core.Generator.Generate<Student>(TotalCount);
+
+            var dictionary = new MyDictionary<string, Student>();
+
+            for (int i = 0; i < TotalCount; i++)
+            {
+                var key = i.ToString();
+                dictionary.Add(key, students[i]);
+                if (i % 5 == 0)
+                    dictionary.Remove(key);
+            }
+        }
+
+
     }
 }
