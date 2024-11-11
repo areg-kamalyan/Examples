@@ -8,25 +8,25 @@ namespace Core.MyCollections
     {
         public class MyKeyValuePair
         {
-            public _Key Key { set; get; }
-            public _Value Value { set; get; }
+            public required _Key Key { set; get; }
+            public required _Value Value { set; get; }
 
-            public MyKeyValuePair Next;
+            public MyKeyValuePair? Next;
         }
 
-        private MyKeyValuePair[] arr;
+        private MyKeyValuePair[] _buckets;
         uint Count;
 
         public MyDictionary()
         {
-            arr = new MyKeyValuePair[4];
+            _buckets = new MyKeyValuePair[4];
         }
 
         private void Resize()
         {
 
-            var TempArr = new MyKeyValuePair[arr.Length * 2];
-            foreach (MyKeyValuePair entry in arr)
+            var TempArr = new MyKeyValuePair[_buckets.Length * 2];
+            foreach (MyKeyValuePair entry in _buckets)
             {
                 var current = entry;
                 while (current != null)
@@ -40,7 +40,7 @@ namespace Core.MyCollections
                     current = next;
                 }
             }
-            arr = TempArr;
+            _buckets = TempArr;
         }
 
         // Хеш-функция
@@ -49,16 +49,21 @@ namespace Core.MyCollections
             return key.GetHashCode() & 0x7FFFFFFF;  // Обеспечиваем положительный хеш
         }
 
-        public void Add(_Key Key, _Value Value)
+        private int GetIndex(_Key key)
         {
-            int hashCode = GetHashCode(Key);
-            int index = hashCode % arr.Length;
+            int hashCode = GetHashCode(key);
+            return hashCode % _buckets.Length;
+        }
+
+        public void Add(_Key key, _Value value)
+        {
+            int index = GetIndex(key);
 
             // Проверка на коллизии
-            var current = arr[index];
+            var current = _buckets[index];
             while (current != null)
             {
-                if (current.Key.Equals(Key))
+                if (current.Key.Equals(key))
                 {
                     throw new ArgumentException("Duplicate key");
                 }
@@ -66,28 +71,27 @@ namespace Core.MyCollections
             }
 
             // Создаем новую запись
-            var newEntry = new MyKeyValuePair{ Key = Key, Value = Value };
-            newEntry.Next = arr[index];
-            arr[index] = newEntry;
+            var newEntry = new MyKeyValuePair{ Key = key, Value = value };
+            newEntry.Next = _buckets[index];
+            _buckets[index] = newEntry;
             Count++;
 
             // Перераспределение массива при превышении порога
-            if (Count > arr.Length * 0.75)
+            if (Count > _buckets.Length * 0.75)
             {
                 Resize();
             }
         }
 
-        public bool Contains(_Key _Key)
+        public bool Contains(_Key key)
         {
-            int hashCode = GetHashCode(_Key);
-            int index = hashCode % arr.Length;
+            int index = GetIndex(key);
 
             // Проверка на коллизии
-            var current = arr[index];
+            var current = _buckets[index];
             while (current != null)
             {
-                if (current.Key.Equals(_Key))
+                if (current.Key.Equals(key))
                 {
                    return true;
                 }
@@ -96,27 +100,26 @@ namespace Core.MyCollections
             return false;
         }
 
-        public void Remove(_Key _Key)
+        public void Remove(_Key key)
         {
-            int hashCode = GetHashCode(_Key);
-            int index = hashCode % arr.Length;
+            int index = GetIndex(key);
 
             // Проверка на коллизии
-            var current = arr[index];
+            var current = _buckets[index];
             MyKeyValuePair old = null;
             while (current != null)
             {
-                if (current.Key.Equals(_Key))
+                if (current.Key.Equals(key))
                 {
                     if (old == null)
                     {
-                        if (arr[index].Next == null)
+                        if (_buckets[index].Next == null)
                         {
-                            arr[index] = default;
+                            _buckets[index] = default;
                         }
                         else
                         {
-                            arr[index] = arr[index].Next;
+                            _buckets[index] = _buckets[index].Next;
                         }
                     }
                     else
@@ -135,11 +138,9 @@ namespace Core.MyCollections
         {
             get
             {
-                int hashCode = GetHashCode(key);
-                int index = hashCode % arr.Length;
-
+                int index = GetIndex(key);
                 // Проверка на коллизии
-                var current = arr[index];
+                var current = _buckets[index];
                 while (current != null)
                 {
                     if (current.Key.Equals(key))
@@ -152,11 +153,9 @@ namespace Core.MyCollections
             }
             set
             {
-                int hashCode = GetHashCode(key);
-                int index = hashCode % arr.Length;
-
+                int index = GetIndex(key);
                 // Проверка на коллизии
-                var current = arr[index];
+                var current = _buckets[index];
                 while (current != null)
                 {
                     if (current.Key.Equals(key))
@@ -172,9 +171,9 @@ namespace Core.MyCollections
 
         public IEnumerator<MyKeyValuePair> GetEnumerator()
         {
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < _buckets.Length; i++)
             {
-                var current = arr[i];
+                var current = _buckets[i];
                 while (current != null)
                 {
                     yield return current;
@@ -186,7 +185,7 @@ namespace Core.MyCollections
 
         public void Clearn()
         {
-            arr = new MyKeyValuePair[4];
+            _buckets = new MyKeyValuePair[4];
             Count = 0;
         }
     }
