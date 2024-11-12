@@ -57,7 +57,7 @@
             }
         }
 
-        public void Insert(T item, uint position)
+        public void Insert(int position, T item)
         {
             Resize();
 

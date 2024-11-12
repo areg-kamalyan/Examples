@@ -32,8 +32,11 @@ namespace Examples
             for (int i = 0; i < TotalCount; i++)
             {
                 list.Add(students[i]);
-                list.Add(students[i]);
+                if (list.Contains(students[i]))
+                    list.Add(students[i]);
                 list.Remove(students[i]);
+                if (i != 0 && i % 5 == 0)
+                    list.Insert(i - 2, students[i]);
             }
         }
 
@@ -47,8 +50,11 @@ namespace Examples
             for (int i = 0; i < TotalCount; i++)
             {
                 list.Add(students[i]);
-                list.Add(students[i]);
+                if (list.Contains(students[i]))
+                    list.Add(students[i]);
                 list.Remove(students[i]);
+                if (i != 0 && i % 5 == 0)
+                    list.Insert(i - 2, students[i]);
             }
         }
 
@@ -62,7 +68,9 @@ namespace Examples
             for (int i = 0; i < TotalCount; i++)
             {
                 queue.Enqueue(students[i]);
-                queue.Enqueue(students[i]);
+                if (queue.Contains(students[i]))
+                    queue.Enqueue(students[i]);
+                queue.Peek();
                 queue.Dequeue();
             }
         }
@@ -77,7 +85,9 @@ namespace Examples
             for (int i = 0; i < TotalCount; i++)
             {
                 queue.Enqueue(students[i]);
-                queue.Enqueue(students[i]);
+                if (queue.Contains(students[i]))
+                    queue.Enqueue(students[i]);
+                queue.Peek();
                 queue.Dequeue();
             }
         }
@@ -94,7 +104,14 @@ namespace Examples
                 var key = i.ToString();
                 dictionary.Add(key, students[i]);
                 if (i % 5 == 0)
-                    dictionary.Remove(key);
+                    if (dictionary.ContainsKey(key))
+                        dictionary.Remove(key);
+            }
+
+            foreach (var item in dictionary)
+            {
+                var data = dictionary[item.Key];
+                dictionary[item.Key].Name = data.Name + "*";
             }
         }
 
@@ -110,7 +127,14 @@ namespace Examples
                 var key = i.ToString();
                 dictionary.Add(key, students[i]);
                 if (i % 5 == 0)
-                    dictionary.Remove(key);
+                    if (dictionary.ContainsKey(key))
+                        dictionary.Remove(key);
+            }
+
+            foreach (var item in dictionary)
+            {
+                var data = dictionary[item.Key];
+                dictionary[item.Key].Name = data.Name + "*";
             }
         }
 

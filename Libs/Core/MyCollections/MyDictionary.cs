@@ -83,7 +83,7 @@ namespace Core.MyCollections
             }
         }
 
-        public bool Contains(_Key key)
+        public bool ContainsKey(_Key key)
         {
             int index = GetIndex(key);
 

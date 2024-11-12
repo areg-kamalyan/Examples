@@ -69,7 +69,7 @@ namespace Core.MyCollections
         {
             foreach (T item in arr) 
             {
-                if (item.Equals(data))
+                if (item != null && item.Equals(data))
                 {
                     return true;
                 }

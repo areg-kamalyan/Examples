@@ -35,7 +35,7 @@ namespace Examples
             data.Add(35, "35");
             data.Add(55, "55");
 
-            if (data.Contains(25))
+            if (data.ContainsKey(25))
             {
                 data.Remove(25);
             }
