@@ -14,12 +14,12 @@ namespace Examples
 {
     public class Repository
     {
-        public static void UseRepositoryPattern()
+        public static void UseRepositoryPattern(int count)
         {
             var service = new ServiceCollection();
             service.AddRepositories(new()
                     {
-                        {nameof(Student),cnf=>{ cnf.FileName = nameof(Student); cnf.StoreType = StoreType.OnDapper; } },
+                        {nameof(Student),cnf=>{ cnf.FileName = nameof(Student); cnf.StoreType = StoreType.OnEntityFramework; } },
                         {nameof(Customer),cnf=>{ cnf.FileName = nameof(Customer); cnf.StoreType = StoreType.OnEntityFramework; } },
                     });
             var Provider = service.BuildServiceProvider();
@@ -27,12 +27,12 @@ namespace Examples
 
             var stRepository = Provider.GetRequiredService<IStutentRepository>();
 
-            Run<Student>(stRepository, 500);
+            Run<Student>(stRepository, count);
             
 
             var cuRepository = Provider.GetRequiredService<ICustomerRepository>();
 
-            Run<Customer>(cuRepository, 10);
+            Run<Customer>(cuRepository, count);
 
 
         }
