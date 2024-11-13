@@ -54,24 +54,42 @@ namespace RepositoryPattern.StorageՕptions
                 // Ensure the database is created
                 context.Database.EnsureCreated();
 
-                // Add the student to the database
-                foreach (var Data in source)
+                switch (typeof(T).Name)
                 {
-                    switch (typeof(T).Name)
-                    {
-                        case (nameof(Student)):
-                            context.Students.Add(Data as Student);
+                    case (nameof(Student)):
+                        {
+                            var Data = source as List<Student>;
+                            var id = context.Students.Select(s => s.ID).ToList();
+                            var Addeble = Data.Where(d => !id.Exists(s => d.ID == s));
+                            var Updateeble = Data.Where(d => id.Exists(s => d.ID == s));
+                            context.Students.AddRange(Addeble);
+                            context.Students.UpdateRange(Updateeble);
                             break;
-                        case (nameof(Customer)):
-                            context.Customers.Add(Data as Customer);
+                        }
+                    case (nameof(Customer)):
+                        {
+                            var Data = source as List<Customer>;
+                            var id = context.Customers.Select(s => s.ID).ToList();
+                            var Addeble = Data.Where(d => !id.Exists(s => d.ID == s));
+                            var Updateeble = Data.Where(d => id.Exists(s => d.ID == s));
+                            context.Customers.AddRange(Addeble);
+                            context.Customers.UpdateRange(Updateeble);
                             break;
-                        case (nameof(Employer)):
-                            context.Employers.Add(Data as Employer);
+                        }
+                    case (nameof(Employer)):
+                        {
+                            var Data = source as List<Employer>;
+                            var id = context.Employers.Select(s => s.ID).ToList();
+                            var Addeble = Data.Where(d => !id.Exists(s => d.ID == s));
+                            var Updateeble = Data.Where(d => id.Exists(s => d.ID == s));
+                            context.Employers.AddRange(Addeble);
+                            context.Employers.UpdateRange(Updateeble);
                             break;
-                        default:
-                            break;
-                    }
+                        }
+                    default:
+                        break;
                 }
+
                 context.SaveChanges();
 
                 //// Display all students
