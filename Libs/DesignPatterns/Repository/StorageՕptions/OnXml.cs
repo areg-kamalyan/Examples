@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace RepositoryPattern.StorageՕptions
+namespace DesignPatterns.Repository.StorageՕptions
 {
     public static class OnXml
     {

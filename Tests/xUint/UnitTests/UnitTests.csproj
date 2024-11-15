@@ -16,7 +16,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="Moq.Contrib.HttpClient" Version="1.4.0" />
-    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,7 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Api\Api.csproj" />
-    <ProjectReference Include="..\..\..\Libs\RepositoryPattern\RepositoryPattern.csproj" />
+    <ProjectReference Include="..\..\..\Libs\DesignPatterns\DesignPatterns.csproj" />
   </ItemGroup>
 
   <ItemGroup>

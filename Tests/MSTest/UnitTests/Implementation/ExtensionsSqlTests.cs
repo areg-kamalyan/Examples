@@ -1,7 +1,8 @@
 ﻿using Core;
 using Core.Entitys;
+using DesignPatterns.Repository.Implementation;
 
-namespace RepositoryPattern.Implementation.MSTests
+namespace DesignPatterns.Implementation.MSTests
 {
     [TestClass()]
     public class ExtensionsSqlTests

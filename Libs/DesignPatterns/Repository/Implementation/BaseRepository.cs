@@ -1,12 +1,7 @@
 ﻿using Core;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RepositoryPattern.Implementation
+namespace DesignPatterns.Repository.Implementation
 {
     public class BaseRepository<TEntity, Tkey> : IBaseRepository<TEntity, Tkey> where TEntity : class, IEntity<Tkey>, new()
     {

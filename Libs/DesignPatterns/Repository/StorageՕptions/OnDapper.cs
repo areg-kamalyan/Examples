@@ -1,12 +1,12 @@
 ﻿using System.Data.SqlClient;
 using Dapper;
 
-namespace RepositoryPattern.StorageՕptions
+namespace DesignPatterns.Repository.StorageՕptions
 {
     internal class OnDapper
     {
         public static string connectionString;
-        internal static IEnumerable<T> Load<T>() 
+        internal static IEnumerable<T> Load<T>()
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -21,7 +21,7 @@ namespace RepositoryPattern.StorageՕptions
             }
         }
 
-        internal static void Write<T>(List<T> source) 
+        internal static void Write<T>(List<T> source)
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.StorageՕptions
 
                 var ColumnNames = typeof(T).GetProperties().Select(e => e.Name).ToList();
                 // SQL query to insert data into a table
-                string insertQuery = $"INSERT INTO {OnAdoNetExpression._Tables[typeof(T).Name]} ({string.Join(", ", ColumnNames)}) VALUES ({$"@{String.Join(", @", ColumnNames)}"})";
+                string insertQuery = $"INSERT INTO {OnAdoNetExpression._Tables[typeof(T).Name]} ({string.Join(", ", ColumnNames)}) VALUES ({$"@{string.Join(", @", ColumnNames)}"})";
                 insertQuery = $" IF NOT EXISTS (SELECT 1 FROM {OnAdoNetExpression._Tables[typeof(T).Name]} WHERE ID = @ID) BEGIN {insertQuery} END";
 
                 // Вставка записи

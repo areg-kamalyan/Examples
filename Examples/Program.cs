@@ -1,9 +1,4 @@
-﻿using Core.MyCollections;
-using Core.Entitys;
-using Examples;
-using Microsoft.Extensions.DependencyInjection;
-using RepositoryPattern;
-using RepositoryPattern.Implementation;
+﻿using Examples;
 internal class Program
 {
 

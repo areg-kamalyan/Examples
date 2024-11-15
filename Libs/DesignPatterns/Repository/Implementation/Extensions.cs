@@ -1,9 +1,9 @@
-﻿using RepositoryPattern.StorageՕptions;
+﻿using DesignPatterns.Repository.StorageՕptions;
 
-namespace RepositoryPattern.Implementation
+namespace DesignPatterns.Repository.Implementation
 {
     public enum StoreType { OnXml, OnEntityFramework, OnAdoNetExpression, OnDapper }
-    public static class Extensions 
+    public static class Extensions
     {
         static Extensions()
         {

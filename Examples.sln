@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples", "Examples\Exampl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Libs\Core\Core.csproj", "{CEA2C1A6-03F4-4682-999A-0BD59BD0946F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryPattern", "Libs\RepositoryPattern\RepositoryPattern.csproj", "{66D83557-0EF1-4A4C-96D0-2944A3AB84F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignPatterns", "Libs\DesignPatterns\DesignPatterns.csproj", "{66D83557-0EF1-4A4C-96D0-2944A3AB84F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Tests\MSTest\UnitTests\UnitTests.csproj", "{A6B4787F-99CA-4AC3-9292-8BAB6A6B2326}"
 EndProject

@@ -1,15 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using RepositoryPattern;
-using RepositoryPattern.Implementation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DesignPatterns.Repository.Implementation;
+using DesignPatterns.Repository;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class RepositoryServiceExtensions
+    public static class Extensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services,  Dictionary<string, Action<RepositoryOptions>> ConfigureOptions)
         {

@@ -1,11 +1,11 @@
 ﻿using Core.Entitys;
 using Microsoft.EntityFrameworkCore;
-namespace RepositoryPattern.StorageՕptions
+namespace DesignPatterns.Repository.StorageՕptions
 {
     internal class UniversityDbContext : DbContext
     {
         private readonly string _connectionString;
-        public UniversityDbContext(string connectionString) 
+        public UniversityDbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
@@ -23,7 +23,7 @@ namespace RepositoryPattern.StorageՕptions
     internal class OnEntityFramework
     {
         public static string connectionString;
-        internal static IEnumerable<T> Load<T>() 
+        internal static IEnumerable<T> Load<T>()
         {
 
             using (var context = new UniversityDbContext(connectionString))
@@ -34,11 +34,11 @@ namespace RepositoryPattern.StorageՕptions
 
                 switch (typeof(T).Name)
                 {
-                    case (nameof(Student)):
+                    case nameof(Student):
                         return context.Students.ToList() as List<T>;
-                    case (nameof(Customer)):
+                    case nameof(Customer):
                         return context.Customers.ToList() as List<T>;
-                    case (nameof(Employer)):
+                    case nameof(Employer):
                         return context.Employers.ToList() as List<T>;
                     default:
                         break;
@@ -47,7 +47,7 @@ namespace RepositoryPattern.StorageՕptions
             return new List<T>();
         }
 
-        internal static void Write<T>(List<T> source) 
+        internal static void Write<T>(List<T> source)
         {
             using (var context = new UniversityDbContext(connectionString))
             {
@@ -56,7 +56,7 @@ namespace RepositoryPattern.StorageՕptions
 
                 switch (typeof(T).Name)
                 {
-                    case (nameof(Student)):
+                    case nameof(Student):
                         {
                             var Data = source as List<Student>;
                             var id = context.Students.Select(s => s.ID).ToList();
@@ -66,7 +66,7 @@ namespace RepositoryPattern.StorageՕptions
                             context.Students.UpdateRange(Updateeble);
                             break;
                         }
-                    case (nameof(Customer)):
+                    case nameof(Customer):
                         {
                             var Data = source as List<Customer>;
                             var id = context.Customers.Select(s => s.ID).ToList();
@@ -76,7 +76,7 @@ namespace RepositoryPattern.StorageՕptions
                             context.Customers.UpdateRange(Updateeble);
                             break;
                         }
-                    case (nameof(Employer)):
+                    case nameof(Employer):
                         {
                             var Data = source as List<Employer>;
                             var id = context.Employers.Select(s => s.ID).ToList();

@@ -1,12 +1,6 @@
 ﻿using Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RepositoryPattern
+namespace DesignPatterns.Repository
 {
     public interface IBaseRepository<TEntity, Tkey> where TEntity : IEntity<Tkey>
     {

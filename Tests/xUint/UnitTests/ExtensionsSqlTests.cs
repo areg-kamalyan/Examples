@@ -1,6 +1,7 @@
 using Core.Entitys;
+using DesignPatterns.Repository.Implementation;
 
-namespace RepositoryPattern.Implementation.xUnitTests
+namespace DesignPatterns.Implementation.xUnitTests
 {
     public class ExtensionsSqlTests
     {

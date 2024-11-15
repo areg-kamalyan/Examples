@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace RepositoryPattern.StorageՕptions
+namespace DesignPatterns.Repository.StorageՕptions
 {
     public class OnAdoNetExpression
     {
@@ -82,7 +82,7 @@ namespace RepositoryPattern.StorageՕptions
 
         internal static void Write<T>(List<T> source)
         {
-             IEnumerable<Expression<Func<T,IDataParameter>>> convertExp = CreateSqlParameterConverterExpression<T>();
+            IEnumerable<Expression<Func<T, IDataParameter>>> convertExp = CreateSqlParameterConverterExpression<T>();
 
             IEnumerable<Func<T, IDataParameter>> convert = convertExp.Select(e => e.Compile());
 
@@ -95,7 +95,7 @@ namespace RepositoryPattern.StorageՕptions
             var ColumnNames = typeof(T).GetProperties().Select(e => e.Name).ToList();
 
             // SQL query to insert data into a table
-            string insertQuery = $"INSERT INTO {_Tables[typeof(T).Name]} ({string.Join(", ", ColumnNames)}) VALUES ({$"@{String.Join(", @", ColumnNames)}"})";
+            string insertQuery = $"INSERT INTO {_Tables[typeof(T).Name]} ({string.Join(", ", ColumnNames)}) VALUES ({$"@{string.Join(", @", ColumnNames)}"})";
             insertQuery = $" IF NOT EXISTS (SELECT 1 FROM {_Tables[typeof(T).Name]} WHERE ID = @ID) BEGIN {insertQuery} END";
 
             // Creating a command object with the SQL query and connection
@@ -106,7 +106,7 @@ namespace RepositoryPattern.StorageՕptions
                 // Executing the command
                 int rowsAffected = command.ExecuteNonQuery();
                 // Outputting the number of rows affected
-               // Console.WriteLine("Rows Inserted: " + rowsAffected);
+                // Console.WriteLine("Rows Inserted: " + rowsAffected);
 
                 command.Parameters.Clear();
             }
@@ -116,7 +116,7 @@ namespace RepositoryPattern.StorageՕptions
         static IEnumerable<Expression<Func<TModel, IDataParameter>>> CreateSqlParameterConverterExpression<TModel>()
         {
 
-              Type destType = typeof(TModel);
+            Type destType = typeof(TModel);
 
             Dictionary<string, PropertyInfo> members = destType
                 .GetProperties()
