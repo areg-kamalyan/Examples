@@ -1,4 +1,5 @@
-﻿using Examples;
+﻿using Examples.Paterns;
+
 internal class Program
 {
 
@@ -13,9 +14,10 @@ internal class Program
         //MyCollection.UseMySteck();
 
         //Reflection.Run();
-        //Repository.UseRepositoryPattern(900000000);
         //Expressions.Run();
-        Benchmarker.Run();
+        //Benchmarker.Run();
+
+        Patterns.Use();
 
 
         Console.WriteLine("Hello, World!");
