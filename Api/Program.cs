@@ -14,7 +14,7 @@ builder.Services.AddSecSwaggerGen();
 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ISmartPhone, SmartPhone>();
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile));
 
 var app = builder.Build();
 

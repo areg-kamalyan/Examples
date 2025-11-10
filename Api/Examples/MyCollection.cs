@@ -6,7 +6,7 @@ namespace Examples
     {
         public static void UseMyList()
         {
-            MyList<int> data = new MyList<int>();
+            var data = new MyList<int>();
             data.Add(15);
             data.Add(25);
             data.Add(35);
@@ -52,7 +52,7 @@ namespace Examples
         public static void UseMyLinkedList()
         {
 
-            var item = new MyLinkedList<int>(new int[] { 1, 2, 3, 4, 5, 6 });
+            var item = new MyLinkedList<int>([1, 2, 3, 4, 5, 6]);
 
             item.Append(7);
             item.AddFirst(0);
@@ -69,7 +69,7 @@ namespace Examples
         }
         public static void UseMyQueue()
         {
-            MyQueue<int> data = new MyQueue<int>();
+           var data = new MyQueue<int>();
             data.Enqueue(15);
             data.Enqueue(25);
             data.Enqueue(35);
@@ -94,7 +94,7 @@ namespace Examples
         }
         public static void UseMySteck()
         {
-            MyStack<int> data = new MyStack<int>();
+            var data = new MyStack<int>();
             data.Push(15);
             data.Push(25);
             data.Push(35);
