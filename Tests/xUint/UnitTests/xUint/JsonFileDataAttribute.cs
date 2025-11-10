@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,13 +13,13 @@ namespace System
 
         public JsonFileDataAttribute(string FileName)
         {
-            this._FileName = FileName;
+            _FileName = FileName;
         }
 
         public override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {
             string jsonString = File.ReadAllText(_FileName);
-            var data = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
+            var data = new StringContent(jsonString, Encoding.UTF8, "application/json");
             yield return new object[] { data };
         }
     }

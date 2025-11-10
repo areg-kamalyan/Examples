@@ -1,5 +1,6 @@
 ﻿using Api;
 using Api.Models;
+using Api.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Moq;
@@ -40,7 +41,7 @@ namespace Api.Services.UnitTests
 
             var data = await phone.ListOFAllObjects();
             if (!data.Any())
-                Assert.Fail();
+                Xunit.Assert.Fail();
         }
 
         public static IEnumerable<object[]> GetPhoneIds()

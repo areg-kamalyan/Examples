@@ -13,14 +13,14 @@ namespace DesignPatterns.Implementation.xUnitTests
             var Data = Extensions.Load<Student>(_StoreType).ToDictionary(p => p.ID);
             if (!Data.Any())
             {
-                Assert.Fail();
+                Xunit.Assert.Fail();
             }
         }
 
         [Fact]
         public void WriteTest()
         {
-            List<Student> st = Core.Generator.Generate<Student>(10).Select(e => (Student)e).ToList();
+            List<Student> st = Core.Generator.Generate<Student>(10).Select(e => e).ToList();
             Extensions.Write(st, _StoreType);
         }
 
