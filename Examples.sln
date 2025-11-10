@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Libs\Core\Core.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignPatterns", "Libs\DesignPatterns\DesignPatterns.csproj", "{66D83557-0EF1-4A4C-96D0-2944A3AB84F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Tests\xUint\UnitTests\UnitTests.csproj", "{F80994D1-382E-41FA-B409-DB75347467A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{F80994D1-382E-41FA-B409-DB75347467A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{93C64B7B-981B-4EF2-A76A-048166CD6FF1}"
 EndProject
