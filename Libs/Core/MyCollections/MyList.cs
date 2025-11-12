@@ -4,6 +4,8 @@
     {
         private T[] arr;
         uint index;
+        public uint Count { get { return index; } }
+
         public MyList()
         {
             arr = new T[4];

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.MyCollections
+﻿namespace Core.MyCollections
 {
     public class MyQueue<T>
     {
@@ -13,6 +6,7 @@ namespace Core.MyCollections
         int head;
         int tail;
         int size;
+        public int Count { get { return size; } }
         public MyQueue()
         {
             arr = new T[4];
@@ -63,6 +57,9 @@ namespace Core.MyCollections
         public void Clear()
         {
             arr = new T[4];
+            head = 0;
+            tail = 0;
+            size = 0;
         }
 
         public bool Contains(T data)

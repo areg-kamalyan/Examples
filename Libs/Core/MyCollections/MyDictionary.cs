@@ -1,9 +1,5 @@
-﻿using System;
-
-namespace Core.MyCollections
+﻿namespace Core.MyCollections
 {
-
-
     public class MyDictionary<_Key, _Value>
     {
         public class MyKeyValuePair
@@ -15,7 +11,8 @@ namespace Core.MyCollections
         }
 
         private MyKeyValuePair[] _buckets;
-        uint Count;
+        uint _Count;
+        public uint Count { get { return _Count; } }
 
         public MyDictionary()
         {
@@ -74,10 +71,10 @@ namespace Core.MyCollections
             var newEntry = new MyKeyValuePair{ Key = key, Value = value };
             newEntry.Next = _buckets[index];
             _buckets[index] = newEntry;
-            Count++;
+            _Count++;
 
             // Перераспределение массива при превышении порога
-            if (Count > _buckets.Length * 0.75)
+            if (_Count > _buckets.Length * 0.75)
             {
                 Resize();
             }
@@ -126,7 +123,7 @@ namespace Core.MyCollections
                     {
                         old.Next = current.Next;
                     }
-                    Count--;
+                    _Count--;
                     break;
                 }
                 old = current;
@@ -186,7 +183,7 @@ namespace Core.MyCollections
         public void Clearn()
         {
             _buckets = new MyKeyValuePair[4];
-            Count = 0;
+            _Count = 0;
         }
     }
 }

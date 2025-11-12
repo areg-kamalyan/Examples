@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.MyCollections
+﻿namespace Core.MyCollections
 {
     public class MyStack<T>
     {
         private T[] arr;
         int index;
+
+        public int Count { get { return index; } }
 
         public MyStack()
         {
@@ -19,6 +15,7 @@ namespace Core.MyCollections
         public void Clear()
         {
             arr = new T[4];
+            index = 0;
         }
 
         public bool Contains(T data)
@@ -43,7 +40,7 @@ namespace Core.MyCollections
 
         public T Peek()
         {
-            return arr[index];
+            return arr[index == 0 ? 0 : index - 1];
         }
 
         public T Pop()

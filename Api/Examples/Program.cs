@@ -9,11 +9,6 @@ namespace Examples
         {
             //Delegates.Run();
             //HashSet.Run();
-            //MyCollection.UseMyList();
-            //MyCollection.UseMyDictionary();
-            //MyCollection.UseMyLinkedList();
-            //MyCollection.UseMyQueue();
-            //MyCollection.UseMySteck();
 
             //Reflection.Run();
             //Expressions.Run();
