@@ -2,10 +2,10 @@
 
 namespace Examples
 {
-    internal class Program
+    internal class Program1
     {
 
-        private static void Main(string[] args)
+        public void Main(string[] args)
         {
             //Delegates.Run();
             //HashSet.Run();

@@ -23,13 +23,5 @@ namespace DesignPatterns.Implementation.xUnitTests
             List<Student> st = Core.Generator.Generate<Student>(10).Select(e => e).ToList();
             Extensions.Write(st, _StoreType);
         }
-
-        [Theory]
-        [InlineData("1", "1")]
-        [InlineData("2", "2")]
-        public void Test(string key, string valeu)
-        {
-
-        }
     }
 }

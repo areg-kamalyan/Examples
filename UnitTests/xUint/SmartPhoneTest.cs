@@ -24,102 +24,45 @@ namespace Api.Services.UnitTests
             return service.BuildServiceProvider();
         }
 
-        [Theory]
-        [JsonFileData("ListOFAllObjects.json")]
-        public async Task ListOFAllObjectsTest(StringContent content)
+        ISmartPhone Load(StringContent content,string Uri)
         {
             Mock<HttpMessageHandler> _Httphandler = new();
             _Httphandler
-                .SetupRequest(message => message.RequestUri.AbsoluteUri == "https://api.restful-api.dev/objects")
+                .SetupRequest(message => message.RequestUri.AbsoluteUri == Uri)
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = content,
                 });
 
-            var phone = Configure(_Httphandler).GetRequiredService<ISmartPhone>();
+            return Configure(_Httphandler).GetRequiredService<ISmartPhone>();
+        }
 
+        [Theory]
+        [JsonFileData("ListOFAllObjects.json")]
+        public async Task ListOFAllObjects(StringContent content)
+        {
+            var phone = Load(content, "https://api.restful-api.dev/objects");
             var data = await phone.ListOFAllObjects();
-            if (!data.Any())
+            if (data.Count == 0)
                 Xunit.Assert.Fail();
         }
 
-        public static IEnumerable<object[]> GetPhoneIds()
-        {
-            yield return new object[] { new List<string> { "1", "2", "3" } };
-            yield return new object[] { new List<string> { "4", "5", "6" } };
-        }
-
         [Theory]
-        [MemberData(nameof(GetPhoneIds))]
-        public async void ListOfObjectsByIdsTest(IEnumerable<string> phonesID)
+        [JsonFileData("ListOfObjectsByIds.json")]
+        public async Task ListOfObjectsByIds(StringContent content)
         {
-            //var data = await phone.ListOfObjectsByIds(phonesID);
-            //if (!data.Any())
-            //    Assert.Fail();
-        }
+            var phone = Load(content, "https://api.restful-api.dev/objects?id=1&id=2&id=3");
+            var data = await phone.ListOfObjectsByIds(["1", "2", "3"]);
+            if (data.Count == 0)
+                Xunit.Assert.Fail();
 
-        [Theory]
-        [InlineData("1")]
-        [InlineData("2")]
-        public async void SingleObjectTest(string Id)
-        {
             //var data = await phone.SingleObject(Id);
-            //if (data.Id != Id)
-            //    Assert.Fail();
-        }
-
-        [Fact]
-        public async void AddObjectTest()
-        {
             //await phone.AddObject(phone);
-        }
-
-        [Fact]
-        public async void UpdateObjectTest()
-        {
             //await phone.UpdateObject(phone);
-        }
-
-        [Fact]
-        public async void DeleteObjectTest()
-        {
             //await phone.DeleteObject(Id);
+
         }
 
-
-    }
-}
-
-public class SmartPhoneMock : ISmartPhone
-{
-    public Task<Phone?> AddObject(Phone phone)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Dictionary<string, string>?> DeleteObject(string Id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<Phone>?> ListOFAllObjects()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<Phone>?> ListOfObjectsByIds(IEnumerable<string> Ids)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Phone?> SingleObject(string Id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Phone?> UpdateObject(Phone phone)
-    {
-        throw new NotImplementedException();
     }
 }

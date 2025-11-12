@@ -103,7 +103,7 @@
 
             // Проверка на коллизии
             var current = _buckets[index];
-            MyKeyValuePair old = null;
+            MyKeyValuePair? old = null;
             while (current != null)
             {
                 if (current.Key.Equals(key))
