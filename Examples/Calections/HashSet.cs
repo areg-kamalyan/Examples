@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace Examples
+namespace Examples.Calections
 {
     class PersonEqualityComparer : EqualityComparer<Person>
     {

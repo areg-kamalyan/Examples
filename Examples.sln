@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{7DB5D6B9-A57E-48AC-970A-5007EB3D36D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{7BE2C6DE-807B-45D1-B25C-015CC96317F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{93C64B7B-981B-4EF2-A76A-048166CD6FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93C64B7B-981B-4EF2-A76A-048166CD6FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93C64B7B-981B-4EF2-A76A-048166CD6FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE2C6DE-807B-45D1-B25C-015CC96317F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE2C6DE-807B-45D1-B25C-015CC96317F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE2C6DE-807B-45D1-B25C-015CC96317F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE2C6DE-807B-45D1-B25C-015CC96317F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
