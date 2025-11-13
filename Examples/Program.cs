@@ -1,4 +1,5 @@
 ﻿using Examples;
+using Examples.Calections;
 using Examples.Paterns;
 using System.Collections.Generic;
 
@@ -6,18 +7,26 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //Delegates.Run();
-        //HashSet.Run();
+        //DelegatesEX.Run();
+        //HashSetEX.Run();
 
-        //Reflection.Run();
-        //Expressions.Run();
-        //Benchmarker.Run();
+        //ReflectionEX.Run();
+        //ExpressionsEX.Run();
+        //BenchmarkerEX.Run();
 
         //Repository.Use(900000000);
         //Bilder.Use();
         //Singleton.Use();
 
         //SemaphoreEX.Run();
+        //ThreadPoolEx.Run();
+
+        //DelegatesEX.Run();
+        //EventsEX.Run();
+
+        //ImmutableCollectionsEx.Ran();
+
+        RecordEx.Run();
 
         Console.WriteLine("Examples End");
         Console.ReadLine();

@@ -13,7 +13,7 @@ namespace Examples.Calections
             return obj.Email.GetHashCode();
         }
     }
-    class HashSet
+    class HashSetEX
     {
         public static void Run()
         {

@@ -5,7 +5,7 @@ using Core.MyCollections;
 
 namespace Examples
 {
-    public class Benchmarker
+    public class BenchmarkerEX
     {
         public static void Run()
         {

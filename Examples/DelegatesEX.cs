@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Examples
 {
-    public class Delegates
+    public class DelegatesEX
     {
 
         public static void Run()
         {
-            var item = new Delegates();
-            List<int> list = new List<int>() { 15, 77, 1500, 1456, 12669, 152, 5234, 1231, 222, 5423, 1114 };
+            var item = new DelegatesEX();
+            var list = new List<int>() { 15, 77, 1500, 1456, 12669, 152, 5234, 1231, 222, 5423, 1114 };
 
             // **************Delegate**********************
 

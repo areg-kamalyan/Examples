@@ -40,10 +40,10 @@
             _buckets = TempArr;
         }
 
-        // Хеш-функция
+        // Հեշ-ֆունկցիա
         private int GetHashCode(_Key key)
         {
-            return key.GetHashCode() & 0x7FFFFFFF;  // Обеспечиваем положительный хеш
+            return key.GetHashCode() & 0x7FFFFFFF;  // հատկացնում ենք դրական հեշ
         }
 
         private int GetIndex(_Key key)
@@ -56,7 +56,7 @@
         {
             int index = GetIndex(key);
 
-            // Проверка на коллизии
+            // Բախումների ստուգում(коллизии)
             var current = _buckets[index];
             while (current != null)
             {
@@ -67,13 +67,13 @@
                 current = current.Next;
             }
 
-            // Создаем новую запись
+            // Ստեղծեք նոր գրառում
             var newEntry = new MyKeyValuePair{ Key = key, Value = value };
             newEntry.Next = _buckets[index];
             _buckets[index] = newEntry;
             _Count++;
 
-            // Перераспределение массива при превышении порога
+            // Վերաբաշխեք զանգվածը, երբ շեմը գերազանցվում է
             if (_Count > _buckets.Length * 0.75)
             {
                 Resize();
@@ -84,7 +84,7 @@
         {
             int index = GetIndex(key);
 
-            // Проверка на коллизии
+            // Բախումների ստուգում(коллизии)
             var current = _buckets[index];
             while (current != null)
             {
@@ -101,7 +101,7 @@
         {
             int index = GetIndex(key);
 
-            // Проверка на коллизии
+            // Բախումների ստուգում(коллизии)
             var current = _buckets[index];
             MyKeyValuePair? old = null;
             while (current != null)
@@ -136,7 +136,7 @@
             get
             {
                 int index = GetIndex(key);
-                // Проверка на коллизии
+                // Բախումների ստուգում(коллизии)
                 var current = _buckets[index];
                 while (current != null)
                 {
@@ -151,7 +151,7 @@
             set
             {
                 int index = GetIndex(key);
-                // Проверка на коллизии
+                // Բախումների ստուգում(коллизии)
                 var current = _buckets[index];
                 while (current != null)
                 {

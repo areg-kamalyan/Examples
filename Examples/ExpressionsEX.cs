@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Examples
 {
-    public class Expressions
+    public class ExpressionsEX
     {
         public static void Run()
         {

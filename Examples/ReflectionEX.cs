@@ -3,7 +3,7 @@ using DesignPatterns.Repository.StorageՕptions;
 
 namespace Examples
 {
-    public class Reflection
+    public class ReflectionEX
     {
         public static void Run()
         {
