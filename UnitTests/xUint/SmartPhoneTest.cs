@@ -9,7 +9,7 @@ using Moq.Protected;
 using System.Net;
 using Xunit;
 
-namespace Api.Services.UnitTests
+namespace UnitTests.xUint
 {
     public class SmartPhoneTest
     {

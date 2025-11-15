@@ -1,20 +1,18 @@
 ﻿using Core;
+using DesignPatterns.Repository.StorageՕptions;
 using Microsoft.Extensions.Options;
 
 namespace DesignPatterns.Repository.Implementation
 {
-    public class BaseRepository<TEntity, Tkey> : IBaseRepository<TEntity, Tkey> where TEntity : class, IEntity<Tkey>, new()
+    public abstract class BaseRepository<TEntity, Tkey> : IBaseRepository<TEntity, Tkey> where TEntity : class, IEntity<Tkey>, new()
     {
         private Dictionary<Tkey, TEntity> Data;
-        private StoreType storeType;
-
-        protected string FileName;
+        private Storage storage;
         public BaseRepository(IOptionsSnapshot<RepositoryOptions> options)
         {
             var _options = options.Get(typeof(TEntity).Name);
-            FileName = _options.FileName;
-            storeType = _options.StoreType;
-            Data = Extensions.Load<TEntity>(storeType, FileName).ToDictionary(p => p.ID);
+            storage = _options.StoreType;
+            Data = storage.Load<TEntity>().ToDictionary(p => p.ID);
         }
 
         public void Delete(Tkey ID)
@@ -39,7 +37,7 @@ namespace DesignPatterns.Repository.Implementation
 
         public void Save()
         {
-            Extensions.Write(GetAll().ToList(), storeType, FileName);
+            storage.Write(GetAll().ToList());
         }
 
         public void Update(TEntity item)

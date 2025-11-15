@@ -1,10 +1,9 @@
-﻿using DesignPatterns.Repository.Implementation;
+﻿using DesignPatterns.Repository.StorageՕptions;
 
 namespace DesignPatterns.Repository
 {
     public class RepositoryOptions
     {
-        public string FileName { get; set; }
-        public StoreType StoreType { get; set; }
+        public Storage StoreType { get; set; }
     }
 }

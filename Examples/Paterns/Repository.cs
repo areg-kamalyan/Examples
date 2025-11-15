@@ -2,8 +2,8 @@
 using Core.Entitys;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
-using DesignPatterns.Repository.Implementation;
 using DesignPatterns.Repository;
+using DesignPatterns.Repository.StorageՕptions;
 
 namespace Examples.Paterns
 {
@@ -14,8 +14,8 @@ namespace Examples.Paterns
             var service = new ServiceCollection();
             service.AddRepositories(new()
                     {
-                        {nameof(Student),cnf=>{ cnf.FileName = nameof(Student); cnf.StoreType = StoreType.OnEntityFramework; } },
-                        {nameof(Customer),cnf=>{ cnf.FileName = nameof(Customer); cnf.StoreType = StoreType.OnEntityFramework; } },
+                        {nameof(Student),cnf=>{  cnf.StoreType = new OnEntityFramework(); } },
+                        {nameof(Customer),cnf=>{  cnf.StoreType = new OnEntityFramework(); } },
                     });
             var Provider = service.BuildServiceProvider();
 

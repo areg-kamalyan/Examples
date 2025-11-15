@@ -20,13 +20,12 @@ namespace DesignPatterns.Repository.StorageՕptions
         }
     }
 
-    internal class OnEntityFramework
+    public class OnEntityFramework: Storage
     {
-        public static string connectionString;
-        internal static IEnumerable<T> Load<T>()
+        public override IEnumerable<T> Load<T>()
         {
 
-            using (var context = new UniversityDbContext(connectionString))
+            using (var context = new UniversityDbContext(ConnectionString))
             {
                 // Ensure the database is created
                 context.Database.EnsureCreated();
@@ -47,9 +46,9 @@ namespace DesignPatterns.Repository.StorageՕptions
             return new List<T>();
         }
 
-        internal static void Write<T>(List<T> source)
+        public override void Write<T>(List<T> source)
         {
-            using (var context = new UniversityDbContext(connectionString))
+            using (var context = new UniversityDbContext(ConnectionString))
             {
                 // Ensure the database is created
                 context.Database.EnsureCreated();

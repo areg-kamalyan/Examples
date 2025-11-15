@@ -12,16 +12,16 @@ namespace Examples
             var customer = Core.Generator.Generate<Customer>(4);
             var employer = Core.Generator.Generate<Employer>(4);
             var listOfInt = new List<int>();
-            for (int i = 1; i <= 4; i++) 
+            for (int i = 1; i <= 4; i++)
             {
                 listOfInt.Add(i);
             }
 
-            person.WriteByReflection(nameof(Person));
-            stutents.WriteByReflection(nameof(Student));
-            customer.WriteByReflection(nameof(Customer));
-            employer.WriteByReflection(nameof(Employer));
-            listOfInt.WriteByReflection(nameof(Int32));
+            OnXml.WriteByReflection(person, nameof(Person));
+            OnXml.WriteByReflection(stutents, nameof(Student));
+            OnXml.WriteByReflection(customer, nameof(Customer));
+            OnXml.WriteByReflection(employer, nameof(Employer));
+            OnXml.WriteByReflection(listOfInt, nameof(Int32));
         }
     }
 }

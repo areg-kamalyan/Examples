@@ -14,7 +14,7 @@ internal class Program
         //ExpressionsEX.Run();
         //BenchmarkerEX.Run();
 
-        //Repository.Use(900000000);
+        Repository.Use(9000);
         //Bilder.Use();
         //Singleton.Use();
 
@@ -26,7 +26,7 @@ internal class Program
 
         //ImmutableCollectionsEx.Ran();
 
-        RecordEx.Run();
+        //RecordEx.Run();
 
         Console.WriteLine("Examples End");
         Console.ReadLine();

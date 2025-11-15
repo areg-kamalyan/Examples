@@ -5,11 +5,8 @@ using System.Reflection;
 
 namespace DesignPatterns.Repository.StorageՕptions
 {
-    public class OnAdoNetExpression
+    public class OnAdoNetExpression: Storage
     {
-
-        public static string connectionString;
-
         public static Dictionary<string, string> _Tables = new()
         {
             { "Student", "Students" },
@@ -18,7 +15,7 @@ namespace DesignPatterns.Repository.StorageՕptions
         };
 
 
-        internal static IEnumerable<T> Load<T>() where T : class, new()
+        public override IEnumerable<T> Load<T>() 
         {
             Expression<Func<IDataRecord, T>> convertExp = CreateDataRecordConverterExpression<T>();
             Func<IDataRecord, T> convert = convertExp.Compile();
@@ -30,9 +27,9 @@ namespace DesignPatterns.Repository.StorageՕptions
         }
 
 
-        public static IEnumerable<IDataRecord> AsEnumerable(string query)
+        public IEnumerable<IDataRecord> AsEnumerable(string query)
         {
-            using var conn = new SqlConnection(connectionString);
+            using var conn = new SqlConnection(ConnectionString);
             if (conn.State != ConnectionState.Open)
                 conn.Open();
 
@@ -48,7 +45,7 @@ namespace DesignPatterns.Repository.StorageՕptions
             }
         }
 
-        static Expression<Func<IDataRecord, TModel>> CreateDataRecordConverterExpression<TModel>() where TModel : class, new()
+        static Expression<Func<IDataRecord, TModel>> CreateDataRecordConverterExpression<TModel>()
         {
             Type destType = typeof(TModel);
 
@@ -80,14 +77,14 @@ namespace DesignPatterns.Repository.StorageՕptions
         }
 
 
-        internal static void Write<T>(List<T> source)
+        public override void Write<T>(List<T> source)
         {
             IEnumerable<Expression<Func<T, IDataParameter>>> convertExp = CreateSqlParameterConverterExpression<T>();
 
             IEnumerable<Func<T, IDataParameter>> convert = convertExp.Select(e => e.Compile());
 
             // Establishing a connection to the database
-            using SqlConnection connection = new SqlConnection(connectionString);
+            using SqlConnection connection = new SqlConnection(ConnectionString);
 
             // Opening the connection
             connection.Open();

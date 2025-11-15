@@ -3,9 +3,9 @@ using System.Xml.Serialization;
 
 namespace DesignPatterns.Repository.StorageՕptions
 {
-    public static class OnXml
+    public class OnXml: Storage
     {
-        public static void WriteByReflection<T>(this IEnumerable<T> Data, string Path)
+        public static void WriteByReflection<T>(IEnumerable<T> Data, string Path)
         {
             using XmlWriter writer = XmlWriter.Create(Path + @".xml");
 
@@ -34,9 +34,9 @@ namespace DesignPatterns.Repository.StorageՕptions
             writer.Flush();
         }
 
-        internal static List<T> Load<T>(string filename)
+        public override IEnumerable<T> Load<T>()
         {
-            filename += ".xml";
+            string filename = nameof(T) + ".xml";
             XmlSerializer xmlSerializer = new(typeof(List<T>));
             using FileStream fs = new(filename, FileMode.OpenOrCreate);
             if (fs.Length == 0)
@@ -47,9 +47,9 @@ namespace DesignPatterns.Repository.StorageՕptions
             return (List<T>)xmlSerializer.Deserialize(fs);
         }
 
-        internal static void Write<T>(List<T> source, string filename)
-        {
-            filename += ".xml";
+        public override void Write<T>(List<T> source)
+        { 
+            string filename = nameof(T) + ".xml";
             XmlSerializer xmlSerializer = new(typeof(List<T>));
             using TextWriter writer = new StreamWriter(filename);
             xmlSerializer.Serialize(writer, source);

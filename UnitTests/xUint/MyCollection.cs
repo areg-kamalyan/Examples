@@ -1,6 +1,6 @@
 ﻿using Core.MyCollections;
 
-namespace Examples
+namespace UnitTests.xUint
 {
     public class MyCollection
     {

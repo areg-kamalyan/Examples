@@ -3,12 +3,11 @@ using Dapper;
 
 namespace DesignPatterns.Repository.StorageՕptions
 {
-    internal class OnDapper
+    public class OnDapper: Storage
     {
-        public static string connectionString;
-        internal static IEnumerable<T> Load<T>()
+        public override IEnumerable<T> Load<T>()
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
@@ -21,9 +20,9 @@ namespace DesignPatterns.Repository.StorageՕptions
             }
         }
 
-        internal static void Write<T>(List<T> source)
+        public override void Write<T>(List<T> source)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
